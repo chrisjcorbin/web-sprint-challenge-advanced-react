@@ -30,13 +30,29 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. Explain how to build stateful class components.
 
+Stateful class components are built with a constructor. You would use this.state to provide data to the state.
+
 2. Describe the different phases of the component lifecycle.
+
+Conceptually, a component lifecycle in React occurs in three phases.
+
+Mounting - Initial data you wish to access are defined on the constructor in this phase. Your render method will be invoked here and componentDidMount (if used) will be called on at this stage.
+
+Updating - This stage is for updating component data. setState would be used here to force a call to render for changing the components state. shouldComponentUpdate can also be used here, but to prevent a component from calling render.
+
+Unmounting - In this stage the component is removed from the screen. componentWillUnmount can be used here to "clean up".
 
 3. Demonstrate an understanding of class component lifecycle methods.
 
+A lot of different things can and do occur during class component lifecycle methods. During these processes, class components are rendered to the screen. Within the rendered component, data is called in and/or changed. Sometimes local states can even be affected.
+
 4. Define stateful logic.
 
+Stateful logic is basically referring to any code that can use state. It's built into a component and can be functions built to perform click events, toggle state, format data, and other tasks.
+
 5. Describe how to test a React component with React Testing Library.
+
+The React Testing Library is quite dynamic. It can be used in various testing methods such as, integration, end-to-end, and unit. We use it to find failures and to get detailed information on them so we can fix them. These tests should be created while following the correct framework for them, Arrange, Act, and Assert.
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
