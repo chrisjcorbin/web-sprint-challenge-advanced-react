@@ -13,14 +13,17 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
 import { lightTheme, darkTheme } from "./components/Themes";
 
-
+import Toggle from "./components/Toggler";
+import { useDarkMode } from "./components/useDarkMode";
 
 function App() {
   // Dark Mode - Stretch
-    const [theme, setTheme] = useState("light");
-    const themeToggler = () => {
-      theme === "light" ? setTheme("dark") : setTheme("light");
-    };
+    // const [theme, setTheme] = useState("light");
+    // const themeToggler = () => {
+    //   theme === "light" ? setTheme("dark") : setTheme("light");
+    // };
+    const [theme, themeToggler, mountedComponent] = useDarkMode();
+    const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   // array of plants that have been added to the cart
   const [cart, setCart] = useState([]);
@@ -35,54 +38,57 @@ function App() {
     setCart(cart.filter((p) => p.id !== plant.id));
   };
 
+if (!mountedComponent) return <div />;
 return (
-  <ThemeProvider theme={theme === 'dark' ? lightTheme : darkTheme}>
-      <>
-      <GlobalStyles/>
-    <div>
-      <Router>
-        <nav className="container">
-          <button onClick={themeToggler}>Switch Theme</button>
-          <h1>
-            React Plants <span role="img">🌿</span>
-          </h1>
-          <ul className="steps">
-            <li>
-              <NavLink exact to="/">
-                Plants
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/cart">
-                Cart
-                <span className="cart-badge">
-                  {cart.length > 0 && cart.length}
-                </span>
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-        <Route
-          exact
-          path="/"
-          render={() => <PlantList addToCart={addToCart} />}
-        />
-        <Route
-          path="/cart"
-          render={(props) => (
-            <ShoppingCart
-              {...props}
-              cart={cart}
-              removeFromCart={removeFromCart}
-            />
-          )}
-        />
-        <Route path="/checkout" component={CheckoutForm} />
-      </Router>
-    </div>
+  // <ThemeProvider theme={theme === 'dark' ? lightTheme : darkTheme}>
+  <ThemeProvider theme={themeMode}>
+    <>
+      <GlobalStyles />
+      <div>
+        <Router>
+          <nav className="container">
+            {/* <button onClick={themeToggler}>Switch Theme</button> */}
+            <Toggle theme={theme} toggleTheme={themeToggler} />
+            <h1>
+              React Plants <span role="img">🌿</span>
+            </h1>
+            <ul className="steps">
+              <li>
+                <NavLink exact to="/">
+                  Plants
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/cart">
+                  Cart
+                  <span className="cart-badge">
+                    {cart.length > 0 && cart.length}
+                  </span>
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <Route
+            exact
+            path="/"
+            render={() => <PlantList addToCart={addToCart} />}
+          />
+          <Route
+            path="/cart"
+            render={(props) => (
+              <ShoppingCart
+                {...props}
+                cart={cart}
+                removeFromCart={removeFromCart}
+              />
+            )}
+          />
+          <Route path="/checkout" component={CheckoutForm} />
+        </Router>
+      </div>
     </>
-    </ThemeProvider>
-  );
+  </ThemeProvider>
+);
 }
 
 export default App;
