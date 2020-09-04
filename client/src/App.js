@@ -7,7 +7,21 @@ import CheckoutForm from "./components/CheckoutForm";
 
 import "./App.css";
 
+// Dark Mode - Stretch
+
+// import { ThemeProvider } from "styled-components";
+// import { GlobalStyles } from "./components/globalStyles";
+// import { lightTheme, darkTheme } from "./components/Themes";
+
+
+
 function App() {
+  // Dark Mode - Stretch
+    // const [theme, setTheme] = useState("light");
+    // const themeToggler = () => {
+    //   theme === "light" ? setTheme("dark") : setTheme("light");
+    // };
+
   // array of plants that have been added to the cart
   const [cart, setCart] = useState([]);
 
@@ -22,9 +36,13 @@ function App() {
   };
 
 return (
+  // <ThemeProvider theme={theme === 'dark' ? lightTheme : darkTheme}>
+  //     <>
+  //     <GlobalStyles/>
     <div>
       <Router>
         <nav className="container">
+          {/* <button onClick={themeToggler}>Switch Theme</button> */}
           <h1>
             React Plants <span role="img">🌿</span>
           </h1>
@@ -62,6 +80,8 @@ return (
         <Route path="/checkout" component={CheckoutForm} />
       </Router>
     </div>
+    // </>
+    // </ThemeProvider>
   );
 }
 
